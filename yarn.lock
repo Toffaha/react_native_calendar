@@ -493,6 +493,13 @@
     pirates "^4.0.0"
     source-map-support "^0.5.9"
 
+"@babel/runtime@^7.2.0":
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.2.0.tgz#b03e42eeddf5898e00646e4c840fa07ba8dcad7f"
+  integrity sha512-oouEibCbHMVdZSDlJBO6bZmID/zA/G/Qx3H1d3rSNPTD+L8UNKvCat7aKWSJ74zYbm5zWGh0GQN0hKj8zYFTCg==
+  dependencies:
+    regenerator-runtime "^0.12.0"
+
 "@babel/template@^7.0.0", "@babel/template@^7.1.0":
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.1.0.tgz#58cc9572e1bfe24fe1537fdf99d839d53e517e22"
@@ -1189,9 +1196,10 @@ babel-preset-jest@^23.2.0:
     babel-plugin-jest-hoist "^23.2.0"
     babel-plugin-syntax-object-rest-spread "^6.13.0"
 
-babel-preset-react-native@2.1.0:
+babel-preset-react-native@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/babel-preset-react-native/-/babel-preset-react-native-2.1.0.tgz#9013ebd82da1c88102bf588810ff59e209ca2b8a"
+  integrity sha1-kBPr2C2hyIECv1iIEP9Z4gnKK4o=
   dependencies:
     babel-plugin-check-es2015-constants "^6.5.0"
     babel-plugin-react-transform "2.0.2"
@@ -2336,6 +2344,13 @@ has@^1.0.1:
   resolved "https://registry.yarnpkg.com/has/-/has-1.0.3.tgz#722d7cbfc1f6aa8241f16dd814e011e1f41e8796"
   dependencies:
     function-bind "^1.1.1"
+
+hoist-non-react-statics@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.2.1.tgz#c09c0555c84b38a7ede6912b61efddafd6e75e1e"
+  integrity sha512-TFsu3TV3YLY+zFTZDrN8L2DTFanObwmBLpWvJs1qfUuEQ5bTAdFcwfx2T/bsCXfM9QHSLvjfP+nihEl0yvozxw==
+  dependencies:
+    react-is "^16.3.2"
 
 home-or-tmp@^2.0.0:
   version "2.0.0"
@@ -4152,16 +4167,14 @@ react-devtools-core@3.3.4:
     shell-quote "^1.6.1"
     ws "^3.3.1"
 
+react-is@^16.3.2, react-is@^16.6.3:
+  version "16.7.0"
+  resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.7.0.tgz#c1bd21c64f1f1364c6f70695ec02d69392f41bfa"
+  integrity sha512-Z0VRQdF4NPDoI0tsXVMLkJLiwEBa+RP66g0xDHxgxysxSoCUccSten4RTF/UFvZF1dZvZ9Zu1sx+MDXwcOR34g==
+
 react-is@^16.5.0:
   version "16.5.2"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.5.2.tgz#e2a7b7c3f5d48062eb769fcb123505eb928722e3"
-
-react-native-general-siblings@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/react-native-general-siblings/-/react-native-general-siblings-1.0.0.tgz#fe19d2fb589fd482bedcf5e725d3855060c7febd"
-  integrity sha512-V6aqrGnVBeUPwnMG56NwyUl8Nqwax1M8gbzINAWgnBnUAqj7wBb6jxvOmAdtsUyV7yMhz+bu1a3hiGZKw7hRyQ==
-  dependencies:
-    static-container "^1.0.0"
 
 "react-native-material-design-styles@git+https://github.com/react-native-material-design/react-native-material-design-styles.git":
   version "0.2.6"
@@ -4174,19 +4187,27 @@ react-native-material-design@^0.3.7:
     react-native-material-design-styles "git+https://github.com/react-native-material-design/react-native-material-design-styles.git"
     react-native-vector-icons "^2.0.1"
 
-react-native-popup-dialog@^0.16.4:
-  version "0.16.4"
-  resolved "https://registry.yarnpkg.com/react-native-popup-dialog/-/react-native-popup-dialog-0.16.4.tgz#686297dc998c4f93a2ef18cdb4e17c7856b44bd6"
-  integrity sha512-MMyn3VHHYDeH5xrlJUpKiQQYq2l4y+nPOXTIZf/g5RZburC0pTvk3iDjFG48YIjW9QbzY7/RAuLxLrEJ5tHSZQ==
+react-native-popup-dialog@^0.16.6:
+  version "0.16.6"
+  resolved "https://registry.yarnpkg.com/react-native-popup-dialog/-/react-native-popup-dialog-0.16.6.tgz#7cbc40412191e06f8338877ca677bdde127ebd6c"
+  integrity sha512-GBwl57QQxpKZA6bdy04/KWUjDgixz0nP1HsLFpWTlYWXBORE0svcbbVGRvKRFV3W0c0zRvssV/TitwJmr9E6pQ==
   dependencies:
     babel-plugin-flow-react-proptypes "^9.1.1"
     prop-types "^15.6.0"
-    react-native-general-siblings "^1.0.0"
+    react-native-root-siblings "^3.1.7"
 
-react-native-swipe-gestures@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-native-swipe-gestures/-/react-native-swipe-gestures-1.0.2.tgz#914e1a72a94bc55b322b4622a01103ab879296dd"
-  integrity sha1-kU4acqlLxVsyK0YioBEDq4eSlt0=
+react-native-root-siblings@^3.1.7:
+  version "3.1.7"
+  resolved "https://registry.yarnpkg.com/react-native-root-siblings/-/react-native-root-siblings-3.1.7.tgz#9af7cf7495311db9fbe929201a3234ed114cfe77"
+  integrity sha512-KYnDyEOR0YSt6WBY3zpF2OOC6AED7dOhdKZamOJaEmBVl8LO3bzvqu39AToH4G3fOspAJVtop7MjH7bzUxtUFQ==
+  dependencies:
+    prop-types "^15.6.2"
+    static-container "^1.0.0"
+
+react-native-swipe-gestures@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-swipe-gestures/-/react-native-swipe-gestures-1.0.3.tgz#4160f8d459627323f3a3d2770af4bcd82fd054f5"
+  integrity sha512-KOouRzPB2fHFjVombsSdRfYo8SFeNVa4Ho4B5il87DuuF26sPNOtb3je+qaT/xVptedOsCzRPJGbWFMsaBApgg==
 
 react-native-vector-icons@^2.0.1:
   version "2.1.0"
@@ -4257,6 +4278,18 @@ react-proxy@^1.1.7:
   dependencies:
     lodash "^4.6.1"
     react-deep-force-update "^1.0.0"
+
+react-redux@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-6.0.0.tgz#09e86eeed5febb98e9442458ad2970c8f1a173ef"
+  integrity sha512-EmbC3uLl60pw2VqSSkj6HpZ6jTk12RMrwXMBdYtM6niq0MdEaRq9KYCwpJflkOZj349BLGQm1MI/JO1W96kLWQ==
+  dependencies:
+    "@babel/runtime" "^7.2.0"
+    hoist-non-react-statics "^3.2.1"
+    invariant "^2.2.4"
+    loose-envify "^1.4.0"
+    prop-types "^15.6.2"
+    react-is "^16.6.3"
 
 react-test-renderer@16.5.0:
   version "16.5.0"
@@ -4335,6 +4368,11 @@ realpath-native@^1.0.0:
   dependencies:
     util.promisify "^1.0.0"
 
+redux-thunk@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.3.0.tgz#51c2c19a185ed5187aaa9a2d08b666d0d6467622"
+  integrity sha512-km6dclyFnmcvxhAcrQV2AkZmPQjzPDjgVlQtR0EQjxZPyJ0BnMf3in1ryuR8A2qU0HldVRfxYXbFSKlI3N7Slw==
+
 redux@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/redux/-/redux-4.0.1.tgz#436cae6cc40fbe4727689d7c8fae44808f1bfef5"
@@ -4356,6 +4394,11 @@ regenerate@^1.4.0:
 regenerator-runtime@^0.11.0:
   version "0.11.1"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.11.1.tgz#be05ad7f9bf7d22e056f9726cee5017fbf19e2e9"
+
+regenerator-runtime@^0.12.0:
+  version "0.12.1"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.12.1.tgz#fa1a71544764c036f8c49b13a08b2594c9f8a0de"
+  integrity sha512-odxIc1/vDlo4iZcfXqRYFj0vpXFNoGdKMAUieAlFYO6m/nl5e9KR/beGf41z4a1FI+aQgtjhuaSlDxQ0hmkrHg==
 
 regenerator-transform@^0.10.0:
   version "0.10.1"

@@ -1,35 +1,87 @@
 import React, {Component} from 'react';
-import {Alert} from 'react-native'
-import Dialog from './DialogComponent'
+import { Platform, StyleSheet, Text, View, TextInput, Picker, TouchableOpacity } from 'react-native'
+import Dialog, { DialogContent, ScaleAnimation } from 'react-native-popup-dialog' 
 
-class PopUpDialog extends Component {
-    constructor(props){
-        super(props)
-        this.state={
-            showDialog: true,
-            importance: '',
-            title: '',
-            date: '',
-        }
-    }
-    render(){
-    return(
-        <Dialog
-            handleDateChange={(number) => {
-                if(number <= 31 && number >= 0) {
-                    this.setState({date: number})
-                } else {
-                    Alert.alert('Enter a valid date')
-                }
-            }}
-            handleTitleChange={(text) => this.setState({title: text})}
-            handleImportanceChange={value => this.setState({importance: value})}
-            date={this.state.date}
-            destroy={() => this.setState({showDialog: false})}
-            showDialog={this.state.showDialog}
-            importance={this.state.importance}
-        />
-    )}
+const DialogComponent = ({showDialog, importance, date, handleDateChange, handleTitleChange, destroy, handleImportanceChange, save}) => {
+    const body = <Dialog
+        visible={showDialog}
+        onTouchOutside={destroy}
+        onHardwareBackPress={destroy}
+        dialogAnimation={new ScaleAnimation({})}
+        height={300}
+        width={300}
+        dialogTitle={<Text style={styles.dialogTitle}>Event setter</Text>}
+    >
+        <DialogContent>
+            <TextInput
+                style={styles.eventTitle}
+                placeholder='Enter tite'
+                onChangeText={handleTitleChange}
+            />
+            <View style={styles.miniContainer}>
+                <Text style={styles.title}>Date: </Text>
+                <TextInput
+                    keyboardType='numeric'
+                    onChangeText={handleDateChange}
+                    value={date}
+                />
+            </View>
+            
+            <View style={styles.miniContainer}>
+                <Text style={styles.title}>Importance: </Text>
+                <Picker
+                    style={{height:50,width:100}}
+                    selectedValue={importance}
+                    onValueChange={handleImportanceChange}
+                >
+                    <Picker.Item label='Low' value='medium'/>
+                    <Picker.Item label='Medium' value='medium'/>
+                    <Picker.Item label='High' value='high'/>
+                </Picker>
+            </View>
+            <TouchableOpacity
+                style={styles.submitButton}
+                onPress={save}
+            >
+                <Text style={{color: 'white', }}>Save</Text>
+            </TouchableOpacity>
+        </DialogContent>
+    </Dialog>
+    return(<>
+        {body}
+    </>)
 }
+const styles = StyleSheet.create({
+    dialogTitle: {
+        alignSelf: 'center',
+        fontSize: 20,
+        marginTop: 3,
+    },
+    eventTitle: {
+        fontSize: 18,
+        fontWeight: '400',
+        color: 'rgb(40, 40, 40)',
+    },
+    title: {
+        fontSize: 15,
+        fontWeight: '400',
+        color: 'rgb(40, 40, 40)',
+    },
+    miniContainer: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center'
+    },
+    submitButton: {
+        backgroundColor: 'rgb(53, 130, 255)',
+        borderRadius: 5,
+        width: 70,
+        height: 30,
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignSelf: 'flex-end',
+        marginTop: 75,
+    }
+})
 
-export default PopUpDialog
+export default DialogComponent

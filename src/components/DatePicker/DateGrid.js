@@ -8,8 +8,6 @@ const DateGrid = ({days, subtract, add, datePress}) => {
            <Text style={styles.letters} key={i}>{letter}</Text>
         ))}
     </View>
-    console.log(days)
-
     let rows = []
     let offset = days[0].day-1
     if (offset < 0) offset = 6
@@ -76,7 +74,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginTop: 50,
         width: 58, 
-        height: 50,
+        height: 40,
         textAlign: 'center',
     },
     letters: {
