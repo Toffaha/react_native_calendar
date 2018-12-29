@@ -4,12 +4,14 @@ import store from './src/configStore'
 import {Provider} from 'react-redux'
 
 import DatePicker from './src/components/DatePicker/index'
+import PopUpDialog from './src/components/Dialog/index'
 
 export default class App extends Component {
   render(){
     return(
       <Provider store={store}>
         <DatePicker/>
+        <PopUpDialog/>
       </Provider>
     )
   }

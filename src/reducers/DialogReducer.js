@@ -1,4 +1,4 @@
-const dialogVisibility = (state = false, action) => {
+export const dialogVisibility = (state = false, action) => {
     switch(action.type) {
         case 'SET_DIALOG_VISIBILITY':
             return action.payload
@@ -6,4 +6,12 @@ const dialogVisibility = (state = false, action) => {
             return state
     }
 }
-export default dialogVisibility
+
+export const dialogDate = (state = '', action) => {
+    switch(action.type) {
+        case 'SET_DIALOG_DATE':
+            return action.payload
+        default:
+            return state
+    }
+}

@@ -6,8 +6,7 @@ import {connect} from 'react-redux'
 
 import DateGrid from './DateGrid'
 import MonthHeader from './MonthHeader'
-import PopUpDialog from '../Dialog'
-import {setDialogVisibility} from '../../actions/index'
+import {setDialogVisibility, setDialogDate} from '../../actions/DialogActions'
 
 
 class DatePicker extends Component {
@@ -15,9 +14,6 @@ class DatePicker extends Component {
         super()
         this.state = {
             today: moment(),
-            importance: '',
-            title: '',
-            date: '',
         }
     }
     getDaysInMonth (year, month) {
@@ -32,26 +28,38 @@ class DatePicker extends Component {
         }
         return result
     }
+
+    eventUpdater(){
+        AsyncStorage.getItem('events', (err, result) => {
+            console.log(result)
+        })
+        
+    }
+    
     render() {
         let idag = this.state.today.clone()
+        this.eventUpdater()
         return(
             <View>
             <MonthHeader
                 subtract={() => {
-                    console.log('ANELE')
+                    console.log('state:', this.state.existingEvents)
+                    AsyncStorage.getItem('events', (err, result) => {
+                        console.log('memory:', result)
+                    })
                 }}
                 add={() => {
-                    idag.add(1, 'M')
-                    this.setState({
-                        today: idag.clone()
-                    })
+                    AsyncStorage.removeItem('events')
+                    // idag.add(1, 'M')
+                    // this.setState({
+                    //     today: idag.clone()
+                    // })
                 }}
                 text={idag.format('MMMM')}
             />
             <DateGrid
                 days={this.getDaysInMonth(idag.year(), idag.month())}
-                subtract={() => {
-                    console.log('moi')
+                subtract={() => {   
                     idag.subtract(1, 'M')
                     this.setState({
                         today: idag.clone()
@@ -66,40 +74,10 @@ class DatePicker extends Component {
                 datePress={(day) => {
                     if(day>0) {
                         let eventDay = idag.clone().date(day).format('DD-MM-YYYY')
-                        console.log(eventDay)
-                        this.setState({date: eventDay})
+                        this.props.setDialogDate(eventDay)
                         this.props.setDialogVisibility(true)
                     }
                 }}
-            />
-            <PopUpDialog
-                showDialog={this.props.dialog}
-                handleDateChange={(number) => {
-                    if(number <= 31 && number >= 0) {
-                        this.setState({date: number})
-                    } else {
-                        Alert.alert('Enter a valid date')
-                    }
-                }}
-                handleTitleChange={(text) => this.setState({title: text})}
-                handleImportanceChange={value => this.setState({importance: value})}
-                date={this.state.date}
-                save={() => {
-                    const eventToBeSaved = {title: this.state.title, date: this.state.date, importance: this.state.importance}
-                    const existingEvents = AsyncStorage.getItem('events')
-                    const events = JSON.parse(existingEvents)
-                    if(!events) events = []
-                    events.push(eventToBeSaved)
-                    await AsyncStorage.setItem('events', JSON.stringify(events))
-                      .then(() => {
-                          console.log('saved')
-                      })
-                      .catch((err) => {
-                          console.log(err)
-                      })
-                }}
-                destroy={() => this.props.setDialogVisibility(false)}
-                importance={this.state.importance}
             />
             </View>
         )
@@ -108,12 +86,12 @@ class DatePicker extends Component {
 
 function mapStateToProps(state) {
     return {
-        dialog: state.dialog,
+        
     }
 }
 
 function matchDispatchToProps(dispatch) {
-    return bindActionCreators({setDialogVisibility}, dispatch)
+    return bindActionCreators({setDialogVisibility, setDialogDate}, dispatch)
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(DatePicker)

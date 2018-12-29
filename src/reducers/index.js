@@ -1,8 +1,9 @@
 import {combineReducers} from 'redux'
-import DialogReducer from './DialogReducer'
+import {dialogVisibility, dialogDate} from './DialogReducer'
 
 const index = combineReducers({
-    dialog: DialogReducer,
+    visibility: dialogVisibility,
+    date: dialogDate,
 })
 
 export default index
