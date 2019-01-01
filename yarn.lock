@@ -4250,6 +4250,11 @@ react-native-gesture-handler@^1.0.0:
     invariant "^2.2.2"
     prop-types "^15.5.10"
 
+react-native-ionicons@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/react-native-ionicons/-/react-native-ionicons-4.5.0.tgz#6b79c010317c8d61baf756dd84e6de162190edc6"
+  integrity sha512-csZ8PW7JEaGd0rLPv9NknlyHuxlOLakSY3pkP70JzHd3luN350sdJkgRUHKQnwFc6EOirN+q69viYO/aL2m6kQ==
+
 "react-native-material-design-styles@git+https://github.com/react-native-material-design/react-native-material-design-styles.git":
   version "0.2.6"
   resolved "git+https://github.com/react-native-material-design/react-native-material-design-styles.git#bdc029c1a1c83ff563d10868be38b8aed1e9989b"
