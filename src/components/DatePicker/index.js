@@ -29,32 +29,12 @@ class DatePicker extends Component {
         return result
     }
 
-    eventUpdater(){
-        AsyncStorage.getItem('events', (err, result) => {
-            console.log(result)
-        })
-        
-    }
     
     render() {
         let idag = this.state.today.clone()
-        this.eventUpdater()
         return(
             <View>
             <MonthHeader
-                subtract={() => {
-                    console.log('state:', this.state.existingEvents)
-                    AsyncStorage.getItem('events', (err, result) => {
-                        console.log('memory:', result)
-                    })
-                }}
-                add={() => {
-                    AsyncStorage.removeItem('events')
-                    // idag.add(1, 'M')
-                    // this.setState({
-                    //     today: idag.clone()
-                    // })
-                }}
                 text={idag.format('MMMM')}
             />
             <DateGrid
@@ -76,6 +56,14 @@ class DatePicker extends Component {
                         let eventDay = idag.clone().date(day).format('DD-MM-YYYY')
                         this.props.setDialogDate(eventDay)
                         this.props.setDialogVisibility(true)
+                        AsyncStorage.getItem('events', (err, result) => {
+                            console.log('memory: ',result)
+                        })
+                    }else {
+                        AsyncStorage.removeItem('events')
+                        AsyncStorage.getItem('events', (err, result) => {
+                            console.log(result)
+                        })
                     }
                 }}
             />

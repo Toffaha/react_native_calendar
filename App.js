@@ -1,17 +1,22 @@
 import React, {Component} from 'react'
 import {Platform, StyleSheet, Text, View} from 'react-native'
 import store from './src/configStore'
-import {Provider} from 'react-redux'
+import {Provider, connect} from 'react-redux'
+import { reduxifyNavigator } from 'react-navigation-redux-helpers';
 
-import DatePicker from './src/components/DatePicker/index'
-import PopUpDialog from './src/components/Dialog/index'
+import {AppNavigator} from './src/routes'
+
+const Application = reduxifyNavigator(AppNavigator, 'root')
+const mapStateToProps = (state) => ({
+  state: state.nav,
+})
+const AppWithNavigationState = connect(mapStateToProps)(Application)
 
 export default class App extends Component {
   render(){
     return(
       <Provider store={store}>
-        <DatePicker/>
-        <PopUpDialog/>
+        <AppWithNavigationState/>
       </Provider>
     )
   }

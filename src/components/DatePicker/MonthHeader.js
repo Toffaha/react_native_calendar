@@ -1,24 +1,11 @@
-import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet} from 'react-native'
-import moment from 'moment'
+import React from 'react'
+import { View, Text, StyleSheet} from 'react-native'
 
-const MonthHeader = ({text, subtract, add}) => (
+const MonthHeader = ({text}) => (
     <View
         style={styles.container}
     >
-        <TouchableOpacity
-            onPress={subtract}
-            style={styles.button}
-        >
-            <Text>subtract</Text>
-        </TouchableOpacity>
         <Text style={styles.title}>{text}</Text>
-        <TouchableOpacity
-            onPress={add}
-            style={styles.button}
-        >
-            <Text>add</Text>
-        </TouchableOpacity>
     </View>
 )
 const styles = StyleSheet.create({
@@ -28,7 +15,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         marginTop: 20,
         marginBottom: 15,
     },

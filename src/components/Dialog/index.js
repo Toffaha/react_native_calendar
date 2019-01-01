@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import {Alert, AsyncStorage} from 'react-native'
-
-import DialogComponent from './DialogComponent';
-
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
+
+import DialogComponent from './DialogComponent';
 import {setDialogVisibility, setDialogDate} from '../../actions/DialogActions'
+import {addEvent} from '../../actions/EventActions'
 
 
 class PopUpDialog extends Component {
@@ -14,10 +14,16 @@ class PopUpDialog extends Component {
         this.state = {
             importance: '',
             title: '',
-            existingEvents: [],
         }
     }
-    render(){
+    componentDidUpdate(prevProps) {
+        if(prevProps.existingEvents !== this.props.existingEvents) {
+            console.log('state:', this.props.existingEvents)
+            AsyncStorage.setItem('events', JSON.stringify(this.props.existingEvents))
+        }
+    }
+    
+    render(){    
         return(
             <DialogComponent
                 showDialog={this.props.visibility}
@@ -33,10 +39,10 @@ class PopUpDialog extends Component {
                 date={this.props.date}
                 save={() => {
                     const newEvent = {date: this.props.date, title: this.state.title, importance: this.state.importance}
-                    this.setState({existingEvents: [...this.state.existingEvents, newEvent]}, () => {
-                        AsyncStorage.setItem('events', JSON.stringify(this.state.existingEvents))
-                    })
-                    
+                    this.props.addEvent(newEvent)
+                    // this.setState({existingEvents: [...this.state.existingEvents, newEvent]}, () => {
+                    //     AsyncStorage.setItem('events', JSON.stringify(this.state.existingEvents))
+                    // })
                 }}
                 destroy={() => this.props.setDialogVisibility(false)}
                 importance={this.state.importance}
@@ -49,11 +55,12 @@ function mapStateToProps(state) {
     return {
         visibility: state.visibility,
         date: state.date,
+        existingEvents: state.existingEvents,
     }
 }
 
 function matchDispatchToProps(dispatch) {
-    return bindActionCreators({setDialogVisibility, setDialogDate}, dispatch)
+    return bindActionCreators({setDialogVisibility, setDialogDate, addEvent}, dispatch)
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(PopUpDialog)

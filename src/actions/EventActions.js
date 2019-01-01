@@ -1,4 +1,4 @@
 export const addEvent = (newEvent) => ({
-    action: 'ADD_EVENT',
+    type: 'ADD_EVENT',
     payload: newEvent
 })
