@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Alert, View, AsyncStorage} from 'react-native'
+import { Alert, View, AsyncStorage, StyleSheet} from 'react-native'
 import moment from 'moment'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
@@ -28,10 +28,23 @@ class DatePicker extends Component {
         }
         return result
     }
-
+    thisMonthsEvents (){
+        const events = []
+        this.props.existingEvents.forEach(event => {
+            if(event !== null) {
+                const eventDay = moment(event.date, 'DD-MM-YYYY')
+                if(eventDay.month() == this.state.today.month()) {
+                    event.dateForGrid = eventDay.date()
+                    events.push(event)
+                }
+            }
+        })
+        return events
+    }
     
     render() {
         let idag = this.state.today.clone()
+        
         return(
             <View>
             <MonthHeader
@@ -56,14 +69,22 @@ class DatePicker extends Component {
                         let eventDay = idag.clone().date(day).format('DD-MM-YYYY')
                         this.props.setDialogDate(eventDay)
                         this.props.setDialogVisibility(true)
-                        AsyncStorage.getItem('events', (err, result) => {
-                            console.log('memory: ',result)
-                        })
-                    }else {
-                        AsyncStorage.removeItem('events')
-                        AsyncStorage.getItem('events', (err, result) => {
-                            console.log(result)
-                        })
+                        AsyncStorage.getItem('events', (err, result) => console.log(result))
+                    }
+                }}
+                eventsThisMonth={this.thisMonthsEvents()}
+                eventDayer={(day) => {
+                    let importance = this.thisMonthsEvents().find(event => event.dateForGrid === day).importance
+                    switch (importance) {
+                        case 'high':
+                            return styles.highImportance
+                        case 'medium':
+                            return styles.mediumImportance
+                        case 'Low':
+                            return styles.lowImportance
+                        default:
+
+                            break
                     }
                 }}
             />
@@ -72,9 +93,21 @@ class DatePicker extends Component {
     }
 }
 
+const styles = StyleSheet.create({
+    highImportance: {
+        color: 'red'
+    },
+    mediumImportance: {
+        color: 'blue'
+    },
+    lowImportance: {
+        color: 'green'
+    },
+})
+
 function mapStateToProps(state) {
     return {
-        
+        existingEvents: state.existingEvents,
     }
 }
 

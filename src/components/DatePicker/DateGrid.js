@@ -1,8 +1,9 @@
 import React from 'react'
 import { Platform, StyleSheet, Text, View } from 'react-native'
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures'
+import moment from 'moment'
 
-const DateGrid = ({days, subtract, add, datePress}) => {
+const DateGrid = ({days, subtract, add, datePress, eventsThisMonth, eventDayer}) => {
     const header = <View style={styles.header}>
         {['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((letter, i) => (
            <Text style={styles.letters} key={i}>{letter}</Text>
@@ -13,6 +14,11 @@ const DateGrid = ({days, subtract, add, datePress}) => {
     if (offset < 0) offset = 6
     let k = 0
     
+    const eventDays = []
+    eventsThisMonth.forEach(event => {
+        eventDays.push(event.dateForGrid)
+    })
+
     for(let i = 0; i < 6; i++) {
         let row = []
         if(i === 0) {
@@ -33,11 +39,11 @@ const DateGrid = ({days, subtract, add, datePress}) => {
         }
         rows.push(row)
     }
-
+    
     const body = rows.map((row, i) => <View key={i} style={styles.body}>
         {row.map((day, j) => {
             return(<View key={j}>
-                <Text onPress={() => datePress(day)} style={styles.days}>{day}</Text>
+                <Text onPress={() => datePress(day)} style={[styles.days, eventDays.includes(day) ? eventDayer(day) : null]}>{day}</Text> 
             </View>)
         })}
     </View>)
@@ -77,6 +83,7 @@ const styles = StyleSheet.create({
         height: 40,
         textAlign: 'center',
     },
+    //importance colors in index.js
     letters: {
         textAlign: 'center',
         fontSize: 20,

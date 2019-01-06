@@ -12,18 +12,43 @@ class PopUpDialog extends Component {
     constructor(){
         super()
         this.state = {
-            importance: '',
+            importance: 'Low',
             title: '',
+            firstLoad: true,
         }
     }
+
+    initialState = async() => {
+        try {
+            const serializedState = await AsyncStorage.getItem('events')
+            console.log('serialized state',JSON.parse(serializedState))
+            if (serializedState === null) {
+                return []
+            }
+            return JSON.parse(serializedState)
+        }catch (err) {
+            return []
+        }
+    }
+
+    componentDidMount() {
+        this.initialState()
+          .then(result => {
+                result.forEach(thing => {
+                    this.props.addEvent(thing)
+                })
+                if(this.state.firstLoad) this.setState({firstLoad: false})          
+            })
+    }
+
     componentDidUpdate(prevProps) {
-        if(prevProps.existingEvents !== this.props.existingEvents) {
-            console.log('state:', this.props.existingEvents)
-            AsyncStorage.setItem('events', JSON.stringify(this.props.existingEvents))
+        if(prevProps.existingEvents !== this.props.existingEvents && !this.state.firstLoad) {
+            console.log('Updating storage! Previous props:', prevProps.existingEvents, 'current props:', this.props.existingEvents)
+            AsyncStorage.setItem('events', JSON.stringify(this.props.existingEvents))            
         }
     }
     
-    render(){    
+    render(){ 
         return(
             <DialogComponent
                 showDialog={this.props.visibility}
@@ -35,14 +60,13 @@ class PopUpDialog extends Component {
                     }
                 }}
                 handleTitleChange={(text) => this.setState({title: text})}
-                handleImportanceChange={value => this.setState({importance: value})}
+                handleImportanceChange={value => {
+                    this.setState({importance: value})
+                }}
                 date={this.props.date}
-                save={() => {
+                save={async() => {
                     const newEvent = {date: this.props.date, title: this.state.title, importance: this.state.importance}
                     this.props.addEvent(newEvent)
-                    // this.setState({existingEvents: [...this.state.existingEvents, newEvent]}, () => {
-                    //     AsyncStorage.setItem('events', JSON.stringify(this.state.existingEvents))
-                    // })
                 }}
                 destroy={() => this.props.setDialogVisibility(false)}
                 importance={this.state.importance}
@@ -51,7 +75,7 @@ class PopUpDialog extends Component {
     }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
     return {
         visibility: state.visibility,
         date: state.date,
@@ -59,8 +83,8 @@ function mapStateToProps(state) {
     }
 }
 
-function matchDispatchToProps(dispatch) {
+const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({setDialogVisibility, setDialogDate, addEvent}, dispatch)
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(PopUpDialog)
+export default connect(mapStateToProps, mapDispatchToProps)(PopUpDialog)

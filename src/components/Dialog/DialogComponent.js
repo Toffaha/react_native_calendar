@@ -34,7 +34,7 @@ const DialogComponent = ({showDialog, importance, date, handleDateChange, handle
                     selectedValue={importance}
                     onValueChange={handleImportanceChange}
                 >
-                    <Picker.Item label='Low' value='medium'/>
+                    <Picker.Item label='Low' value='low'/>
                     <Picker.Item label='Medium' value='medium'/>
                     <Picker.Item label='High' value='high'/>
                 </Picker>
