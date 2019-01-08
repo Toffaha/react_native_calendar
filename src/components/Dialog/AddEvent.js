@@ -1,7 +1,7 @@
 import {DialogContent} from 'react-native-popup-dialog'
 import React from 'react'
 import {View, TextInput, Picker, TouchableOpacity, StyleSheet, Text} from 'react-native'
-
+//moi
 const addEvent = ({importance, date, handleDateChange, handleTitleChange, handleImportanceChange, save}) =>  <DialogContent>
     <TextInput
         style={styles.eventTitle}
