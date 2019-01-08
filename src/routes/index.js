@@ -1,26 +1,21 @@
-import {createBottomTabNavigator} from 'react-navigation'
-import Icon from 'react-native-ionicons'
-import Perus from './perus'
 import React from 'react'
+import {createBottomTabNavigator} from 'react-navigation'
+
+import MonthView from './MonthView'
+import EventList from './EventList'
+
+import {darkColor, lightColor} from '../styles/noCSSILoveIt'
 
 export const AppNavigator = createBottomTabNavigator({
-    Calendar: Perus,
-    
+    Calendar: MonthView,
+    Events: EventList,    
 }, {
     defaultNavigationOptions: ({navigation}) => ({
-      tabBarIcon: ({focused, horizontal, tintColor}) => {
-        let iconName
-        switch (navigation.state.routeName) {
-            case 'Calendar':
-                iconName='grid'
-            default:
-                break;
-        }
-        return <Icon name={iconName} />
-      },  
-    }),
-    tabBarOptions: {
-        activeTintColor: 'tomato',
-        inactiveTintColor: 'green'
-    }
+      tabBarOptions: {
+          style: {
+            backgroundColor: darkColor,
+            activeColor: lightColor,
+          }
+      }
+    })
 })

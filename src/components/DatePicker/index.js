@@ -8,12 +8,14 @@ import DateGrid from './DateGrid'
 import MonthHeader from './MonthHeader'
 import {setDialogVisibility, setDialogDate} from '../../actions/DialogActions'
 
+import {lowPriority, mediumPriority, highPriority} from '../../styles/noCSSILoveIt'
 
 class DatePicker extends Component {
     constructor(){
         super()
         this.state = {
             today: moment(),
+            actuallyToday: moment().date(),
         }
     }
     getDaysInMonth (year, month) {
@@ -64,6 +66,7 @@ class DatePicker extends Component {
                         today: idag.clone()
                     })
                 }}
+                today={this.state.actuallyToday}
                 datePress={(day) => {
                     if(day>0) {
                         let eventDay = idag.clone().date(day).format('DD-MM-YYYY')
@@ -77,33 +80,23 @@ class DatePicker extends Component {
                     let importance = this.thisMonthsEvents().find(event => event.dateForGrid === day).importance
                     switch (importance) {
                         case 'high':
-                            return styles.highImportance
+                            return {color: highPriority}
                         case 'medium':
-                            return styles.mediumImportance
-                        case 'Low':
-                            return styles.lowImportance
+                            return {color: mediumPriority}
+                        case 'low':
+                            return {color: lowPriority}
                         default:
-
-                            break
+                            return {color: 'white'}
                     }
-                }}
+                }
+                }
             />
             </View>
         )
     }
 }
 
-const styles = StyleSheet.create({
-    highImportance: {
-        color: 'red'
-    },
-    mediumImportance: {
-        color: 'blue'
-    },
-    lowImportance: {
-        color: 'green'
-    },
-})
+
 
 function mapStateToProps(state) {
     return {

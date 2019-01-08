@@ -1,10 +1,14 @@
 import DatePicker from '../components/DatePicker/index'
 import Dialog from '../components/Dialog/index'
 import React, {Component} from 'react'
+import Icon from 'react-native-ionicons'
 
-class Perus extends Component {
+
+class MonthView extends Component {
     static navigationOptions = () => ({
-        
+        tabBarIcon: () => (<Icon
+            name='grid'
+        />)
     })
     render(){
         return(<>
@@ -14,4 +18,4 @@ class Perus extends Component {
     }
 }
 
-export default Perus
+export default MonthView

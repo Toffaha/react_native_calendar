@@ -1,0 +1,6 @@
+export const mainColor = '#303F9F'
+export const darkColor = '#1A237E'
+export const lightColor = '#3F51B5'
+export const lowPriority = '#00C853'
+export const mediumPriority = '#FFD600'
+export const highPriority = '#D50000'

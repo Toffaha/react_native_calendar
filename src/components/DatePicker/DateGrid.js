@@ -1,9 +1,9 @@
 import React from 'react'
 import { Platform, StyleSheet, Text, View } from 'react-native'
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures'
-import moment from 'moment'
+import {mainColor, lightColor, darkColor} from '../../styles/noCSSILoveIt'
 
-const DateGrid = ({days, subtract, add, datePress, eventsThisMonth, eventDayer}) => {
+const DateGrid = ({days, subtract, add, datePress, eventsThisMonth, eventDayer, today}) => {
     const header = <View style={styles.header}>
         {['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((letter, i) => (
            <Text style={styles.letters} key={i}>{letter}</Text>
@@ -13,7 +13,6 @@ const DateGrid = ({days, subtract, add, datePress, eventsThisMonth, eventDayer})
     let offset = days[0].day-1
     if (offset < 0) offset = 6
     let k = 0
-    
     const eventDays = []
     eventsThisMonth.forEach(event => {
         eventDays.push(event.dateForGrid)
@@ -59,7 +58,7 @@ const DateGrid = ({days, subtract, add, datePress, eventsThisMonth, eventDayer})
             onSwipeRight={subtract}
             config={config}
         >
-        <View>
+        <View style={styles.everythingIGuess}>
             {header}
             {body}
         </View>
@@ -70,11 +69,18 @@ const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
         justifyContent: 'space-around',
+        backgroundColor: mainColor,
+        
+    },
+    everythingIGuess: {
+        backgroundColor: mainColor,
+
     },
     body: {
         flexWrap: 'wrap',
         flexDirection: 'row',
         justifyContent: 'space-around',
+        backgroundColor: mainColor,
     },
     days: {
         fontSize: 20,
@@ -82,6 +88,10 @@ const styles = StyleSheet.create({
         width: 58, 
         height: 40,
         textAlign: 'center',
+    },
+    today: {
+        backgroundColor: 'blue',
+        borderRadius: 5,
     },
     //importance colors in index.js
     letters: {
