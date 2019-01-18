@@ -1,15 +1,16 @@
-import {DialogContent} from 'react-native-popup-dialog'
 import React from 'react'
 import {View, TextInput, Picker, TouchableOpacity, StyleSheet, Text} from 'react-native'
-//moi
-const addEvent = ({importance, date, handleDateChange, handleTitleChange, handleImportanceChange, save}) =>  <DialogContent>
+import {textColor} from '../../styles/noCSSILoveIt'
+
+const addEvent = ({importance, date, handleDateChange, handleTitleChange, handleImportanceChange, save}) =>  <>
+    <View><Text style={styles.title}>Add a new event</Text></View>
     <TextInput
-        style={styles.eventTitle}
+        style={styles.eventStuff}
         placeholder='Enter tite'
         onChangeText={handleTitleChange}
     />
     <View style={styles.miniContainer}>
-        <Text style={styles.title}>Date: </Text>
+        <Text style={styles.eventStuff}>Date: </Text>
         <TextInput
             keyboardType='numeric'
             onChangeText={handleDateChange}
@@ -18,9 +19,9 @@ const addEvent = ({importance, date, handleDateChange, handleTitleChange, handle
     </View>
     
     <View style={styles.miniContainer}>
-        <Text style={styles.title}>Importance: </Text>
+        <Text style={styles.eventStuff}>Importance: </Text>
         <Picker
-            style={{height:50,width:100}}
+            style={{height: 20,width:100}}
             selectedValue={importance}
             onValueChange={handleImportanceChange}
         >
@@ -29,30 +30,30 @@ const addEvent = ({importance, date, handleDateChange, handleTitleChange, handle
             <Picker.Item label='High' value='high'/>
         </Picker>
     </View>
-    <TouchableOpacity
-        style={styles.submitButton}
-        onPress={save}
-    >
-        <Text style={{color: 'white', }}>Save</Text>
-    </TouchableOpacity>
-</DialogContent>
+    
+</>
 
 const styles = StyleSheet.create({
-    eventTitle: {
+    eventStuff: {
         fontSize: 18,
-        fontWeight: '400',
-        color: 'rgb(40, 40, 40)',
+        fontWeight: '300',
+        color: textColor,
+        margin: 0,
+        padding: 0
     },
     title: {
-        fontSize: 15,
+        marginTop: 15,
+        marginBottom: 8,
+        fontSize: 20,
         fontWeight: '400',
-        color: 'rgb(40, 40, 40)',
+        color: textColor,
     },
     miniContainer: {
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        
+        margin: 0,
+        padding: 0,
     },
     submitButton: {
         backgroundColor: 'rgb(53, 130, 255)',
@@ -61,8 +62,10 @@ const styles = StyleSheet.create({
         height: 30,
         alignItems: 'center',
         justifyContent: 'center',
-        alignSelf: 'flex-end',
-        marginTop: 60,
+        //alignSelf: 'flex-end',
+        position: 'absolute',
+        right: 10,
+        bottom: -20
     }
 })
 

@@ -5,8 +5,9 @@ import {mainColor} from '../../styles/noCSSILoveIt'
 
 
 const EventList = ({data, colorPicker, onLongPress}) => {
-        
-    return(<View style={styles.container}>
+    console.log(data)
+    
+    const eventsExist = <View style={styles.container}>
         <FlatList
             data={data}
             keyExtractor={(item, index) => `${item}--${index}`}
@@ -14,20 +15,27 @@ const EventList = ({data, colorPicker, onLongPress}) => {
                 return (<TouchableOpacity onLongPress={() => onLongPress(item)} style={[styles.event, colorPicker(item.importance)]}>
                     <Text style={styles.title}>{item.title}</Text>
                     <Text style={styles.date}>{item.date}</Text>
-                    <Text style={styles.importance} key={index}>Importance: {item.importance}</Text>
+                    <Text style={styles.importance} >Importance: {item.importance}</Text>
                 </TouchableOpacity>)
             }}
         />
-    </View>)
+    </View>
+    return(
+        eventsExist
+    )
 }
 
 const styles = StyleSheet.create({
+    noEvnets: {
+       
+        backgroundColor: mainColor
+    },
     container: {
         alignItems: 'center',
         backgroundColor: mainColor,
     },
     event: {
-        backgroundColor: '#6200EE',
+        backgroundColor: mainColor,
         borderRadius: 15,
         height: 110,
         width: 400,

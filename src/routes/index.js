@@ -4,7 +4,7 @@ import {createBottomTabNavigator} from 'react-navigation'
 import MonthView from './MonthView'
 import EventList from './EventList'
 
-import {darkColor, lightColor} from '../styles/noCSSILoveIt'
+import {darkColor, lightColor, mainColor} from '../styles/noCSSILoveIt'
 
 export const AppNavigator = createBottomTabNavigator({
     Calendar: MonthView,
@@ -18,4 +18,5 @@ export const AppNavigator = createBottomTabNavigator({
           }
       }
     })
-})
+},
+)

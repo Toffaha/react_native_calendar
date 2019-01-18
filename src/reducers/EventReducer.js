@@ -15,7 +15,7 @@ export const EventReducer = (state = [], action) => {
             console.log('works')
             return state.filter(event => event !== action.payload)
         default:
-            console.log('this just the default case')
+            //console.log('this just the default case')
             return state
     }
 }
