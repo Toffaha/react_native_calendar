@@ -12,7 +12,8 @@ const EventList = ({data, colorPicker, onLongPress}) => {
             data={data}
             keyExtractor={(item, index) => `${item}--${index}`}
             renderItem={({index, item}) => { 
-                return (<TouchableOpacity onLongPress={() => onLongPress(item)} style={[styles.event, colorPicker(item.importance)]}>
+                console.log(item, index)
+                return (<TouchableOpacity onLongPress={() => onLongPress(index)} style={[styles.event, colorPicker(item.importance)]}>
                     <Text style={styles.title}>{item.title}</Text>
                     <Text style={styles.date}>{item.date}</Text>
                     <Text style={styles.importance} >Importance: {item.importance}</Text>
@@ -20,15 +21,31 @@ const EventList = ({data, colorPicker, onLongPress}) => {
             }}
         />
     </View>
-    return(
-        eventsExist
-    )
+    const noEvents = <View style={styles.noEventContainer}>
+        <Text style={styles.textOne}>You haven't saved any events yet</Text>
+        <Text style={styles.textTwo}>(Create events by clicking on dates in Calendar view)</Text>
+    </View>
+
+    if(!Array.isArray(data) || !data.length) {
+        return noEvents
+    } else {
+        return eventsExist
+    }
 }
 
 const styles = StyleSheet.create({
-    noEvnets: {
-       
-        backgroundColor: mainColor
+    noEventContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    textOne: {
+        fontSize: 25,
+        marginVertical: 10,
+    },
+    textTwo: {
+        marginVertical: 10,
+        fontSize: 15
     },
     container: {
         alignItems: 'center',

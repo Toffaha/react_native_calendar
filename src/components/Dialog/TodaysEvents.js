@@ -5,7 +5,7 @@ import { textColor } from '../../styles/noCSSILoveIt';
 const TodaysEvents = ({data, onLongPress, date, colorPicker}) =>  {
     const listHeight = data.length * 60 >= 150 ? 150 : data.length * 60
     const content = <>
-        <View><Text style={styles.title}>Your events for {date}</Text></View>
+        <View><Text style={styles.title}>Your events for the {date}</Text></View>
         <FlatList style={{height: listHeight}}
                 data={data}
                 keyExtractor={(item, index) => `${item}--${index}`}

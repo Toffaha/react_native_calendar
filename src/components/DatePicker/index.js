@@ -8,7 +8,7 @@ import DateGrid from './DateGrid'
 import MonthHeader from './MonthHeader'
 import {setDialogVisibility, setDialogDate} from '../../actions/DialogActions'
 
-import {lowPriority, mediumPriority, highPriority} from '../../styles/noCSSILoveIt'
+import {lowPriority, mediumPriority, highPriority, mainColor} from '../../styles/noCSSILoveIt'
 
 class DatePicker extends Component {
     constructor(){
@@ -48,7 +48,7 @@ class DatePicker extends Component {
         let idag = this.state.today.clone()
         
         return(
-            <View>
+            <View style={{backgroundColor: mainColor, flex: 1}}>
             <MonthHeader
                 text={idag.format('MMMM')}
             />
@@ -72,7 +72,6 @@ class DatePicker extends Component {
                         let eventDay = idag.clone().date(day).format('DD-MM-YYYY')
                         this.props.setDialogDate(eventDay)
                         this.props.setDialogVisibility(true)
-                        AsyncStorage.getItem('events', (err, result) => console.log(result))
                     }
                 }}
                 eventsThisMonth={this.thisMonthsEvents()}

@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {AsyncStorage} from 'react-native'
+import {AsyncStorage, View, StyleSheet} from 'react-native'
 
 import EventList from './EventList'
 
 import {removeEvent} from '../../actions/EventActions'
 
-import {lowPriority, mediumPriority, highPriority} from '../../styles/noCSSILoveIt'
+import {lowPriority, mediumPriority, highPriority, mainColor} from '../../styles/noCSSILoveIt'
 
 class EventPicker extends Component {
     constructor() {
@@ -24,10 +24,11 @@ class EventPicker extends Component {
 
     render(){
         return(
+            <View style={styles.container}>
             <EventList
                 onLongPress={(removeable) => {
                     console.log('long press achieved! the removeable:', removeable)
-                    removeEvent(removeable)
+                    this.props.removeEvent(removeable)
                 }}
                 data={this.props.existingEvents}
                 colorPicker={(importance) => {
@@ -43,9 +44,17 @@ class EventPicker extends Component {
                     }
                 }}
             />
+            </View>
         )
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: mainColor,
+        flex: 1,
+    }
+})
 
 const mapStateToProps = (state) => {
     return {

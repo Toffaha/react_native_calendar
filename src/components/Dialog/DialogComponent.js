@@ -11,7 +11,6 @@ import Weathers from './Weathers'
 
 const DialogComponent = ({showDialog, destroy, importance, date, handleDateChange, colorPicker,
     handleTitleChange, handleImportanceChange, save, data, onLongPress, weathers, icon}) => {
-        console.log(data.length)
         const body = <Dialog
             visible={showDialog}
             dialogStyle={{backgroundColor: lightColor}}
@@ -25,7 +24,7 @@ const DialogComponent = ({showDialog, destroy, importance, date, handleDateChang
         {data.length !== 0 ? (<TodaysEvents
                 data={data}
                 onLongPress={onLongPress}
-                date={date}
+                date={date.slice(0,2)}
                 colorPicker={colorPicker}
             />) : null}
             
