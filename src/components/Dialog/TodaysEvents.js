@@ -11,7 +11,7 @@ const TodaysEvents = ({data, onLongPress, date, colorPicker}) =>  {
                 keyExtractor={(item, index) => `${item}--${index}`}
                 renderItem={({index, item}) => { 
                     return (<TouchableOpacity style={styles.eventBoxes} onLongPress={() => onLongPress(item)}>
-                        <Text style={styles.eventText} >{item.title}</Text>
+                        <Text style={styles.eventText} >Title: {item.title}</Text>
                         <Text style={styles.eventText} >Importance: <Text style={[styles.eventText, colorPicker(item.importance)]}>{item.importance}</Text></Text>
                     </TouchableOpacity>)
                 }}

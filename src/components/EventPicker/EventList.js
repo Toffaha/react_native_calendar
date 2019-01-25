@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         height: 110,
         width: 400,
-        marginVertical: 2,
+        marginTop: 5,
         padding: 10,
     },
     importance: {
