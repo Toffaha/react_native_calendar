@@ -1,7 +1,7 @@
 import React from 'react'
 import { Platform, StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native'
 
-import {mainColor} from '../../styles/noCSSILoveIt'
+import {mainColor, textColor} from '../../styles/noCSSILoveIt'
 
 
 const EventList = ({data, colorPicker, onLongPress}) => {
@@ -14,9 +14,9 @@ const EventList = ({data, colorPicker, onLongPress}) => {
             renderItem={({index, item}) => { 
                 console.log(item, index)
                 return (<TouchableOpacity onLongPress={() => onLongPress(index)} style={[styles.event, colorPicker(item.importance)]}>
-                    <Text style={styles.title}>{item.title}</Text>
-                    <Text style={styles.date}>{item.date}</Text>
-                    <Text style={styles.importance} >Importance: {item.importance}</Text>
+                    <Text style={[styles.title, styles.text]}>{item.title}</Text>
+                    <Text style={[styles.date, styles.text]}>{item.date}</Text>
+                    <Text style={[styles.importance, styles.text]} >Importance: {item.importance}</Text>
                 </TouchableOpacity>)
             }}
         />
@@ -34,6 +34,9 @@ const EventList = ({data, colorPicker, onLongPress}) => {
 }
 
 const styles = StyleSheet.create({
+    text: {
+        //color: textColor,
+    },
     noEventContainer: {
         flex: 1,
         alignItems: 'center',

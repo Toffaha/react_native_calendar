@@ -15,7 +15,7 @@ class DatePicker extends Component {
         super()
         this.state = {
             today: moment(),
-            actuallyToday: moment().date(),
+            actuallyToday: moment().format('DD-MM-YYYY'),
         }
     }
     getDaysInMonth (year, month) {
@@ -53,6 +53,7 @@ class DatePicker extends Component {
                 text={idag.format('MMMM')}
             />
             <DateGrid
+                monthAndYear={idag.format('MM-YYYY')}
                 days={this.getDaysInMonth(idag.year(), idag.month())}
                 subtract={() => {   
                     idag.subtract(1, 'M')

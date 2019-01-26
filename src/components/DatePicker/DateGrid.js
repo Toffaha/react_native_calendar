@@ -3,7 +3,9 @@ import { Platform, StyleSheet, Text, View } from 'react-native'
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures'
 import {mainColor, lightColor, darkColor} from '../../styles/noCSSILoveIt'
 
-const DateGrid = ({days, subtract, add, datePress, eventsThisMonth, eventDayer, today}) => {
+const DateGrid = ({days, subtract, add, datePress, eventsThisMonth, eventDayer, today, monthAndYear}) => {
+    console.log(monthAndYear)
+    console.log(today)
     const header = <View style={styles.header}>
         {['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((letter, i) => (
            <Text style={styles.letters} key={i}>{letter}</Text>
@@ -41,7 +43,8 @@ const DateGrid = ({days, subtract, add, datePress, eventsThisMonth, eventDayer, 
     
     const body = rows.map((row, i) => <View key={i} style={styles.body}>
         {row.map((day, j) => {
-            return(<View key={j}>
+            return(<View key={j} style={styles.dayContainer}>
+                {`${day}-${monthAndYear}` === today ? (<View style={styles.today}></View>) : null}
                 <Text onPress={() => datePress(day)} style={[styles.days, eventDays.includes(day) ? eventDayer(day) : null]}>{day}</Text> 
             </View>)
         })}
@@ -66,6 +69,13 @@ const DateGrid = ({days, subtract, add, datePress, eventsThisMonth, eventDayer, 
     )
 }
 const styles = StyleSheet.create({
+    dayContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical: 25,
+        width: 58, 
+        height: 40,
+    },
     header: {
         flexDirection: 'row',
         justifyContent: 'space-around',
@@ -84,14 +94,15 @@ const styles = StyleSheet.create({
     },
     days: {
         fontSize: 20,
-        marginTop: 50,
-        width: 58, 
-        height: 40,
         textAlign: 'center',
     },
     today: {
-        backgroundColor: 'blue',
-        borderRadius: 5,
+        position: 'absolute',
+        height: 37,
+        width: 37,
+        zIndex: -1,
+        backgroundColor: lightColor,
+        borderRadius: 100/2,
     },
     //importance colors in index.js
     letters: {
